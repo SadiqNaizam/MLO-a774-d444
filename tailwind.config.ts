@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
 	darkMode: ["class"],
@@ -19,55 +20,60 @@ export default {
 		},
 		extend: {
 			colors: {
-				border: 'hsl(var(--border))',
-				input: 'hsl(var(--input))',
-				ring: 'hsl(var(--ring))',
-				background: 'hsl(var(--background))',
-				foreground: 'hsl(var(--foreground))',
+				border: 'var(--border)',
+				input: 'var(--input)',
+				ring: 'var(--ring)',
+				background: 'var(--background)',
+				foreground: 'var(--foreground)',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					DEFAULT: 'var(--primary)',
+					foreground: 'var(--primary-foreground))'
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					DEFAULT: 'var(--secondary)',
+					foreground: 'var(--secondary-foreground)'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
 				},
 				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))'
+					DEFAULT: 'var(--muted)',
+					foreground: 'var(--muted-foreground)'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
+					DEFAULT: 'var(--accent)',
+					foreground: 'var(--accent-foreground)'
 				},
 				popover: {
-					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))'
+					DEFAULT: 'var(--popover)',
+					foreground: 'var(--popover-foreground)'
 				},
 				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
+					DEFAULT: 'var(--card)',
+					foreground: 'var(--card-foreground)'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
+        // PRD specific colors
+        'prd-sidebar-bg': 'var(--prd-sidebar-bg)',
+        'prd-primary-text': 'var(--foreground)', // Mapped from primaryText
+        'prd-secondary-text': 'var(--muted-foreground)', // Mapped from secondaryText
+        'prd-accent-blue': 'var(--primary)', // Mapped from accentBlue
+        'prd-accent-gray': 'var(--secondary)', // Mapped from accentGray
+        'prd-border': 'var(--border)' // Mapped from border
 			},
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+        // Based on PRD default 'rounded-md' (0.375rem) which is assigned to --radius
+				lg: 'var(--radius)', // 0.375rem (Tailwind 'md')
+				md: 'calc(var(--radius) - 2px)', // approx. 0.25rem (Tailwind 'sm')
+				sm: 'calc(var(--radius) - 4px)', // approx. 0.125rem (Tailwind 'xs')
+        // 'default' will use Tailwind's default, or components can use 'rounded-lg' for PRD's default
+        // PRD's 'buttons: rounded-full' uses the existing 'rounded-full' utility class.
 			},
+      fontFamily: {
+        sans: ['var(--font-primary)', ...defaultTheme.fontFamily.sans],
+      },
+      // PRD 'effects.shadows.default: shadow-sm' uses the existing 'shadow-sm' utility class.
+      // No extension needed for boxShadow unless a new default is desired for the 'shadow' class itself.
 			keyframes: {
 				'accordion-down': {
 					from: {
